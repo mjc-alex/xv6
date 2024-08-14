@@ -5,15 +5,14 @@
 int
 main(int argc, char *argv[])
 {
-  int i;
-
-  for(i = 1; i < argc; i++){
-    write(1, argv[i], strlen(argv[i]));
-    if(i + 1 < argc){
-      write(1, " ", 1);
-    } else {
-      write(1, "\n", 1);
-    }
-  }
+	if (argc < 2) {
+    fprintf(2, "Usage: sleep n ticks...\n");
+    exit(1);
+	}
+	int n = atoi(argv[1]);
+  if (sleep(n) == -1) {
+		fprintf(2, "sleep error\n");
+		exit(1);
+	}		
   exit(0);
 }
