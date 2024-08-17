@@ -22,9 +22,12 @@ int atoi(const char *s) {
 	return ans;
 }
 int main() {
-	char s[10];
-	scanf("%s", s);
-  int n = atoi(s);		
-	printf("%d\n", n);
+//	char s[10];
+//	scanf("%s", s);
+//  int n = atoi(s);		
+//	printf("%d\n", n);
+	int p[10];
+	*p = 10;
+	printf("%d, %d, %d, %d", *p, p, *p + 1, *(p+1)); 	
 	return 0;
 }
