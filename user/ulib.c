@@ -43,6 +43,20 @@ memset(void *dst, int c, uint n)
   return dst;
 }
 
+//void fuck(int *x) {
+//	*x = 529;
+//}
+// char* strcat(char s1[], const char s2[]) {
+//   int i = strlen(s1), j = strlen(s2), k = 0;
+//   while (j > 0) {
+//     s1[i] = s2[k];
+//     i++;
+//     k++;
+//     j--;
+//   }
+//   s1[i] = '\0';
+// 	return s1;
+// }
 char*
 strchr(const char *s, char c)
 {

@@ -5,7 +5,6 @@
 
 #define N 34
 int buf[N];
-
 void panic(char *s)
 {
   fprintf(2, "%s\n", s);
@@ -23,12 +22,12 @@ int fork1(void)
 }
 
 void sieve(int round, int nums[], int n) {
-	if (n == 0) return;
+	if (round == 0) return;
+
 	int p[2];	
 	if (pipe(p) < 0) {
 		panic("pipe");
 	}
-
 	if (fork1() == 0) {
 		close(0);
 		int fd = dup(p[0]);
@@ -39,7 +38,6 @@ void sieve(int round, int nums[], int n) {
 		do {
 			x = read(fd, buf + cnt / 4, 4);
 			cnt += x;
-			//printf("x = %d ", x);
 		}while (x > 0);
 		if (cnt == 0) {
 			return;
@@ -51,7 +49,7 @@ void sieve(int round, int nums[], int n) {
 			//for (int i = 0; i < cnt / 4; i++) {
 			//	printf("%d ", buf[i]);
 			//}
-			sieve(n--, buf, cnt / 4);
+			sieve(round--, buf, cnt / 4);
 		}
 		close(fd);
 	}

@@ -25,6 +25,10 @@ int sleep(int);
 int uptime(void);
 
 // ulib.c
+
+//my adding:
+//char* strcat(char*, const char*);
+
 int stat(const char*, struct stat*);
 char* strcpy(char*, const char*);
 void *memmove(void*, const void*, int);
