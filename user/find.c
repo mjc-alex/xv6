@@ -78,7 +78,7 @@ void find(char* path, char *name) {
       }
 			else {
 				if (strcmp(name, getname(buf)) == 0) {
-					printf("%s\n", buf);
+          printf("%s\n", buf);
 				}	
         // printf("after buf: %s\n", buf);
 			}
@@ -92,6 +92,5 @@ int main(int argc, char *argv[])
 		fprintf(2, "Usage: find <dir> <filename>\n");
 	}		
 	find(argv[1], argv[2]);
-
 	exit(0);
 }
