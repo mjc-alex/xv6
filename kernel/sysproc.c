@@ -107,16 +107,15 @@ uint64 sys_trace(void) {
 }
 
 uint64 sys_sysinfo(void) {
-  // uint64 sinfo;
-  // struct sysinfo* kinfo = 0; 
-  // struct proc *p = myproc();
+  uint64 sinfo;
+  struct sysinfo kinfo; 
+  struct proc *p = myproc();
 
-  // kinfo->nproc = unusedProc();
-  // kinfo->freemem = getFreeMem();
-  // if (argaddr(0, &sinfo) < 0) 
-  //   return -1;
-  // if(copyout(p->pagetable, sinfo, (char*)kinfo, sizeof(kinfo)) < 0)
-  //   return -1;
-  // printf("%d\n", kinfo->nproc);
+  kinfo.nproc = unusedProc();
+  kinfo.freemem = getFreeMem();
+  if (argaddr(0, &sinfo) < 0) 
+    return -1;
+  if(copyout(p->pagetable, sinfo, (char*)&kinfo, sizeof(kinfo)) < 0)
+    return -1;
   return 0;
 }

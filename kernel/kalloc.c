@@ -84,6 +84,11 @@ kalloc(void)
 // Get the number of bytes of free memory
 int getFreeMem(void) {
   int ans = 0;
-  // struct proc *p = myproc();
-  return ans;
+  struct run *r;
+  r = kmem.freelist;
+  while (r) {
+    ans++;
+    r = r->next;
+  }
+  return ans * PGSIZE;
 }
