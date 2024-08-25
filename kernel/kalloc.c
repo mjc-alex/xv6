@@ -80,3 +80,10 @@ kalloc(void)
     memset((char*)r, 5, PGSIZE); // fill with junk
   return (void*)r;
 }
+
+// Get the number of bytes of free memory
+int getFreeMem(void) {
+  int ans = 0;
+  // struct proc *p = myproc();
+  return ans;
+}

@@ -104,8 +104,11 @@ extern uint64 sys_unlink(void);
 extern uint64 sys_wait(void);
 extern uint64 sys_write(void);
 extern uint64 sys_uptime(void);
+extern uint64 sys_trace(void);
+extern uint64 sys_sysinfo(void);
 
-static uint64 (*syscalls[])(void) = {
+// 一个函数指针数组，指向的函数类型是这样的：参数void,返回值uint64
+static uint64 (*syscalls[])(void) = { 
 [SYS_fork]    sys_fork,
 [SYS_exit]    sys_exit,
 [SYS_wait]    sys_wait,
@@ -127,6 +130,35 @@ static uint64 (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_trace]   sys_trace,
+[SYS_sysinfo] sys_sysinfo,
+};
+
+char* procName[] = {
+"",
+"fork",
+"exit",
+"wait",
+"pipe",
+"read",
+"kill",
+"exec",
+"fstat",
+"chdir",
+"dup",
+"getpid",
+"sbrk",
+"sleep",
+"uptime",
+"open",
+"write",
+"mknod",
+"unlink",
+"link",
+"mkdir",
+"close",
+"trace",
+"sysinfo",
 };
 
 void
@@ -138,6 +170,14 @@ syscall(void)
   num = p->trapframe->a7;
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     p->trapframe->a0 = syscalls[num]();
+    int x = 1 << num;
+    x &= p->mask;
+    if (x > 0) {
+      printf("%d: syscall %s -> %d\n", p->pid, procName[num], p->trapframe->a0);
+    }
+    // if (num == SYS_trace) {
+    //   printf("trace %d\nmask %d\n", (int)p->trapframe->a0, p->mask);
+    // }
   } else {
     printf("%d %s: unknown sys call %d\n",
             p->pid, p->name, num);
